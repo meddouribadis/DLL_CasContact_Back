@@ -9,6 +9,7 @@ const classeService = require('./classe.service');
 router.post('/', authorize(), classeSchema, createClasse);
 router.get('/', authorize(), getAll);
 router.get('/:id', authorize(), getById);
+router.get('/byName/:name', authorize(), getByName)
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
@@ -62,6 +63,12 @@ function getAll(req, res, next) {
 
 function getById(req, res, next) {
     classeService.getById(req.params.id)
+        .then(classe => res.json(classe))
+        .catch(next);
+}
+
+function getByName(req, res, next) {
+    classeService.getByName(req.params.name)
         .then(classe => res.json(classe))
         .catch(next);
 }
