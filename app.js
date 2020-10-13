@@ -16,6 +16,8 @@ app.use('/apidoc', express.static('apidoc'));
 
 // api routes
 app.use('/users', require('./routes/users/user.controller'));
+app.use('/classes', require('./routes/classes/classe.controller'));
+
 // global error handler
 app.use(errorHandler);
 

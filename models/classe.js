@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     nom: { type: DataTypes.STRING, allowNull: false },
+    code: { type: DataTypes.STRING, allowNull: false },
     createdAt: { allowNull: false, type: DataTypes.DATE },
     updatedAt: { allowNull: false, type: DataTypes.DATE }
   }, {
