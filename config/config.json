@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "pyteach_user",
+    "username": "dll_user",
     "password": "covid19",
-    "database": "pyteach",
+    "database": "dll",
     "host": "127.0.0.1",
     "port": "3306",
     "dialect": "mysql"
