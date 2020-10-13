@@ -1,6 +1,3 @@
-const config = require('config.json');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const db = require('models/');
 
 module.exports = {
@@ -65,4 +62,3 @@ async function getClasse(id) {
     if (!classe) throw 'Classe non trouvée';
     return classe;
 }
-

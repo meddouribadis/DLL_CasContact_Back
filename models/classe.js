@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_classe',
         as: 'students'
       });
+      Classe.hasOne(models.User, {
+        foreignKey: 'id_gestion',
+        as: 'referant'
+      });
     }
   };
   Classe.init({
