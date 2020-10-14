@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     role: { type: DataTypes.STRING, allowNull: false, defaultValue: "STUDENT"},
     hash: { type: DataTypes.STRING, allowNull: false },
     email: { allowNull: false, type: DataTypes.STRING },
+    numEtud: { allowNull: true, type: DataTypes.STRING },
     createdAt: { allowNull: false, type: DataTypes.DATE },
     updatedAt: { allowNull: false, type: DataTypes.DATE }
   }, {
