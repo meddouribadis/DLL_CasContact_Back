@@ -3,10 +3,10 @@ const router = express.Router();
 const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
-const infectionService = require('./infection.service');
+const signalementService = require('./signalement.service');
 
 // Routes (sécurisé par token)
-router.post('/', authorize(), infectionSchema, createInfection);
+router.post('/', authorize(), signalementSchema, createSignalement);
 router.get('/', authorize(), getAll);
 router.get('/:id', authorize(), getById);
 router.get('/byName/:name', authorize(), getByName)
@@ -16,11 +16,12 @@ router.delete('/:id', authorize(), _delete);
 module.exports = router;
 
 // Schema Validation //
-function infectionSchema(req, res, next) {
+function signalementSchema(req, res, next) {
     const schema = Joi.object({
         dateDebut: Joi.string().required(),
         dateFin: Joi.string().required(),
-        id_user: Joi.string().required()
+        id_user: Joi.string().required(),
+        isCasContact: Joi.boolean().required()
     });
     validateRequest(req, next, schema);
 }
@@ -29,24 +30,25 @@ function updateSchema(req, res, next) {
     const schema = Joi.object({
         dateDebut: Joi.string().required(),
         dateFin: Joi.string().required(),
-        id_user: Joi.string().required()
+        id_user: Joi.string().required(),
+        isCasContact: Joi.boolean().empty('')
     });
     validateRequest(req, next, schema);
 }
 
 // Actions //
-function createInfection(req, res, next) {
-    infectionService.create(req.body)
-        .then((infection) => res.status(201).json({
-            id: infection.id,
-            message: 'Infection created successfully'
+function createSignalement(req, res, next) {
+    signalementService.create(req.body)
+        .then((signalement) => res.status(201).json({
+            id: signalement.id,
+            message: 'Signalement created successfully'
         }))
         .catch(next);
 }
 
 function update(req, res, next) {
-    infectionService.update(req.params.id, req.body)
-        .then(infection => res.json(infection))
+    signalementService.update(req.params.id, req.body)
+        .then(signalement => res.json(signalement))
         .catch(next);
 }
 

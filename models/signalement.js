@@ -3,19 +3,19 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Infection extends Model {
+    class Signalement extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Infection.belongsTo(models.User, {
+            Signalement.belongsTo(models.User, {
                 foreignKey: 'id_user',
             });
         }
     };
-    Infection.init({
+    Signalement.init({
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -24,11 +24,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         dateDebut: { type: DataTypes.DATE, allowNull: false },
         dateFin: { type: DataTypes.DATE, allowNull: false },
+        isCasContact: { type: DataTypes.BOOLEAN, allowNull: false },
         createdAt: { allowNull: false, type: DataTypes.DATE },
         updatedAt: { allowNull: false, type: DataTypes.DATE }
     }, {
         sequelize,
-        modelName: 'Infection',
+        modelName: 'Signalement',
         defaultScope: {
             attributes: { exclude: ['hash'] }
         },
@@ -36,5 +37,5 @@ module.exports = (sequelize, DataTypes) => {
             withHash: { attributes: {}, }
         }
     });
-    return Infection;
+    return Signalement;
 };
