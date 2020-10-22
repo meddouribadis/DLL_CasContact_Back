@@ -1,4 +1,7 @@
+const Sequelize = require('sequelize');
+
 const db = require('models/');
+const Op = Sequelize.Op;
 
 module.exports = {
     getAll,
@@ -9,9 +12,21 @@ module.exports = {
 };
 
 async function create(params) {
-    /*if (await db.Signalement.findOne({ where: { id_user: params.id_user } })) {
-        throw 'Une signalement pour la personne "' + params.id_user + '" existe deja';
-    }*/
+
+    let dateDebut = new Date(params.dateDebut);
+    let dateFin = new Date(params.dateFin);
+
+    if (await db.Signalement.findOne({
+        where: {
+            id_user: params.id_user,
+            dateDebut: {
+                [Op.lt]: new Date(dateFin.setDate(dateFin.getDate()+1)),
+                [Op.gt]: new Date(dateDebut.setDate(dateDebut.getDate()-1))
+            }
+        }
+    })) {
+        throw 'Un signalement pour la personne "' + params.id_user + '" existe deja';
+    }
 
     return db.Signalement.create(params);
 }
