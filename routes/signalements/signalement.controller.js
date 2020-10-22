@@ -8,8 +8,9 @@ const signalementService = require('./signalement.service');
 // Routes (sécurisé par token)
 router.post('/', authorize(), signalementSchema, createSignalement);
 router.get('/', authorize(), getAll);
+router.get('/allActive', authorize(), getAllActive);
+router.get('/byUser/:id', authorize(), getByUserId);
 router.get('/:id', authorize(), getById);
-router.get('/byName/:name', authorize(), getByName)
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
@@ -53,26 +54,32 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
-    classeService.delete(req.params.id)
+    signalementService.delete(req.params.id)
         .then(() => res.json({ message: 'Classe deleted successfully' }))
         .catch(next);
 }
 
 // Getters //
 function getAll(req, res, next) {
-    classeService.getAll()
-        .then(classes => res.json(classes))
+    signalementService.getAll()
+        .then(signalements => res.json(signalements))
+        .catch(next);
+}
+
+function getAllActive(req, res, next) {
+    signalementService.getAllActive()
+        .then(signalements => res.json(signalements))
         .catch(next);
 }
 
 function getById(req, res, next) {
-    classeService.getById(req.params.id)
-        .then(classe => res.json(classe))
+    signalementService.getById(req.params.id)
+        .then(signalement => res.json(signalement))
         .catch(next);
 }
 
-function getByName(req, res, next) {
-    classeService.getByName(req.params.name)
-        .then(classe => res.json(classe))
+function getByUserId(req, res, next) {
+    signalementService.getAllByUserId(req.params.id)
+        .then(signalements => res.json(signalements))
         .catch(next);
 }

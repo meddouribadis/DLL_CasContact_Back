@@ -5,6 +5,8 @@ const Op = Sequelize.Op;
 
 module.exports = {
     getAll,
+    getAllActive,
+    getAllByUserId,
     getById,
     create,
     update,
@@ -43,6 +45,24 @@ async function _delete(id) {
 // Getter
 async function getAll() {
     return await db.Signalement.findAll();
+}
+
+async function getAllActive() {
+    let dateCurrent = new Date()
+    return await db.Signalement.findAll({
+        where: {
+            dateFin: {
+                [Op.gt]: new Date(dateCurrent.setDate(dateCurrent.getDate()-1))
+            }
+        },
+        include: [{
+            model: db.User
+        }]
+    });
+}
+
+async function getAllByUserId(id) {
+    return await db.Signalement.findAll({ where: { id_user: id } });
 }
 
 async function getById(id) {
