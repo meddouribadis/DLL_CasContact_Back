@@ -56,7 +56,11 @@ async function getAllActive() {
             }
         },
         include: [{
-            model: db.User
+            model: db.User,
+            include: [{
+                    model: db.Classe,
+                    as: "classe"
+                }]
         }]
     });
 }
