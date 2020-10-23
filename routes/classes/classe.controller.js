@@ -8,6 +8,7 @@ const classeService = require('./classe.service');
 // Routes (sécurisé par token)
 router.post('/', authorize(), classeSchema, createClasse);
 router.get('/', authorize(), getAll);
+router.get('/list' , getAllWithoutUsers);
 router.get('/:id', authorize(), getById);
 router.get('/byName/:name', authorize(), getByName)
 router.put('/:id', authorize(), updateSchema, update);
@@ -57,6 +58,12 @@ function _delete(req, res, next) {
 // Getters //
 function getAll(req, res, next) {
     classeService.getAll()
+        .then(classes => res.json(classes))
+        .catch(next);
+}
+
+function getAllWithoutUsers(req, res, next) {
+    classeService.getAllWithoutUsers()
         .then(classes => res.json(classes))
         .catch(next);
 }

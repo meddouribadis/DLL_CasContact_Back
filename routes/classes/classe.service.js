@@ -2,6 +2,7 @@ const db = require('models/');
 
 module.exports = {
     getAll,
+    getAllWithoutUsers,
     getById,
     getByName,
     create,
@@ -37,8 +38,16 @@ async function _delete(id) {
 }
 
 // Getter
-
 async function getAll() {
+    return await db.Classe.findAll({
+        include: [{
+            model: db.User,
+            as: 'students'
+        }]
+    });
+}
+
+async function getAllWithoutUsers() {
     return await db.Classe.findAll();
 }
 

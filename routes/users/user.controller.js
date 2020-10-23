@@ -37,6 +37,7 @@ function registerSchema(req, res, next) {
         username: Joi.string().required(),
         email: Joi.string().required(),
         numEtud: Joi.string().optional(),
+        id_classe: Joi.string().required(),
         password: Joi.string().min(6).required()
     });
     validateRequest(req, next, schema);
