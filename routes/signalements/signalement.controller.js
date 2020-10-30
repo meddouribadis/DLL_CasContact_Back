@@ -4,10 +4,11 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const signalementService = require('./signalement.service');
+const Role = require('_helpers/role');
 
 // Routes (sécurisé par token)
 router.post('/', authorize(), signalementSchema, createSignalement);
-router.get('/', authorize(), getAll);
+router.get('/', authorize(Role.Teacher), getAll);
 router.get('/allActive', authorize(), getAllActive);
 router.get('/byUser/:id', authorize(), getByUserId);
 router.get('/:id', authorize(), getById);

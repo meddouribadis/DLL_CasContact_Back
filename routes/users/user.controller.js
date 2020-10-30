@@ -4,6 +4,7 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const userService = require('./user.service');
+const Role = require('_helpers/role');
 
 // routes
 router.post('/login', authenticateSchema, authenticate);
