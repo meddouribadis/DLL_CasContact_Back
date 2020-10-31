@@ -9,11 +9,11 @@ const Role = require('_helpers/role');
 // Routes (sécurisé par token)
 router.post('/', authorize(), signalementSchema, createSignalement);
 router.get('/', authorize(Role.Teacher), getAll);
-router.get('/allActive', authorize(), getAllActive);
+router.get('/allActive', authorize(Role.Teacher), getAllActive);
 router.get('/byUser/:id', authorize(), getByUserId);
 router.get('/:id', authorize(), getById);
 router.put('/:id', authorize(), updateSchema, update);
-router.delete('/:id', authorize(), _delete);
+router.delete('/:id', authorize(Role.Teacher), _delete);
 
 module.exports = router;
 

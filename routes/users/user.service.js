@@ -28,6 +28,16 @@ async function getAll() {
     return await db.User.findAll();
 }
 
+async function getAllWithSignalements() {
+    return await db.User.findAll({
+        include: [{
+            model: db.Signalement,
+            as: 'signalements',
+        }]
+    });
+}
+
+
 async function getById(id) {
     return await getUser(id);
 }

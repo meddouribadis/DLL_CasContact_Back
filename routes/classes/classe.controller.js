@@ -4,15 +4,16 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const classeService = require('./classe.service');
+const Role = require('_helpers/role');
 
 // Routes (sécurisé par token)
-router.post('/', authorize(), classeSchema, createClasse);
-router.get('/', authorize(), getAll);
+router.post('/', authorize([Role.Teacher, Role.Admin]), classeSchema, createClasse);
+router.get('/', authorize([Role.Teacher, Role.Admin]), getAll);
 router.get('/list' , getAllWithoutUsers);
 router.get('/:id', authorize(), getById);
 router.get('/byName/:name', authorize(), getByName)
-router.put('/:id', authorize(), updateSchema, update);
-router.delete('/:id', authorize(), _delete);
+router.put('/:id', authorize([Role.Teacher, Role.Admin]), updateSchema, update);
+router.delete('/:id', authorize([Role.Teacher, Role.Admin]), _delete);
 
 module.exports = router;
 

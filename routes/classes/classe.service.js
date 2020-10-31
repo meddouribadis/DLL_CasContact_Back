@@ -42,7 +42,11 @@ async function getAll() {
     return await db.Classe.findAll({
         include: [{
             model: db.User,
-            as: 'students'
+            as: 'students',
+            include: [{
+                model: db.Signalement,
+                as: 'signalements'
+            }]
         }]
     });
 }
@@ -65,7 +69,11 @@ async function getClasse(id) {
     const classe = await db.Classe.findByPk(id, {
         include: [{
             model: db.User,
-            as: 'students'
+            as: 'students',
+            include: [{
+                model: db.Signalement,
+                as: 'signalements'
+            }]
         }]
     });
     if (!classe) throw 'Classe non trouvée';

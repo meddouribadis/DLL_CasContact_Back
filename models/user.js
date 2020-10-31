@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'classe',
         foreignKey: 'id_classe'
       });
+      User.hasMany(models.Signalement, {
+        foreignKey: 'id_user',
+        as: 'signalements'
+      });
     }
   };
   User.init({
