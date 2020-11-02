@@ -3,34 +3,30 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Signalement extends Model {
+    class Document extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Signalement.belongsTo(models.User, {
-                foreignKey: 'id_user',
-            });
-            Signalement.hasMany(models.Document);
+            Document.belongsTo(models.User);
+            Document.belongsTo(models.Signalement);
         }
     };
-    Signalement.init({
+    Document.init({
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        dateDebut: { type: DataTypes.DATE, allowNull: false },
-        dateFin: { type: DataTypes.DATE, allowNull: false },
-        isCasContact: { type: DataTypes.BOOLEAN, allowNull: false },
+        filename: { allowNull: false, type: DataTypes.STRING },
         createdAt: { allowNull: false, type: DataTypes.DATE },
         updatedAt: { allowNull: false, type: DataTypes.DATE }
     }, {
         sequelize,
-        modelName: 'Signalement',
+        modelName: 'Document',
         defaultScope: {
             attributes: { exclude: ['hash'] }
         },
@@ -38,5 +34,5 @@ module.exports = (sequelize, DataTypes) => {
             withHash: { attributes: {}, }
         }
     });
-    return Signalement;
+    return Document;
 };

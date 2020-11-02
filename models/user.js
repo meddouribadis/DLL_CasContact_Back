@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_user',
         as: 'signalements'
       });
+      User.hasMany(models.Document);
     }
   };
   User.init({

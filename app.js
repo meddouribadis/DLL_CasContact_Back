@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const db = require("./models");
 
 dotenv.config();
+global.__basedir = __dirname;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ app.use('/apidoc', express.static('apidoc'));
 app.use('/users', require('./routes/users/user.controller'));
 app.use('/classes', require('./routes/classes/classe.controller'));
 app.use('/signalements', require('./routes/signalements/signalement.controller'));
+app.use('/documents', require('./routes/documents/document.controller'));
 
 // global error handler
 app.use(errorHandler);
