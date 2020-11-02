@@ -15,7 +15,6 @@ router.get("/files/:name", authorize(), download);
 module.exports = router;
 
 async function upload(req, res, next) {
-
     try {
         await uploadFileMiddleware(req, res);
 
@@ -23,9 +22,9 @@ async function upload(req, res, next) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
 
-        documentService.create(req.body)
-            .then((classe) => res.status(201).json({
-                id: classe.id,
+        documentService.create(req.body, req.file.filename)
+            .then((document) => res.status(201).json({
+                id: document.id,
                 message: 'Document created successfully'
             }))
             .catch(next);
@@ -38,13 +37,37 @@ async function upload(req, res, next) {
 }
 
 function getListFiles(req, res, next) {
-    const schema = Joi.object({
-        nom: Joi.string().required(),
-        code: Joi.string().required(),
+    const directoryPath = __basedir + "/resources/static/assets/uploads/";
+
+    fs.readdir(directoryPath, function (err, files) {
+        if (err) {
+            res.status(500).send({
+                message: "Unable to scan files!",
+            });
+        }
+
+        let fileInfos = [];
+
+        files.forEach((file) => {
+            fileInfos.push({
+                name: file,
+                url: baseUrl + file,
+            });
+        });
+
+        res.status(200).send(fileInfos);
     });
-    validateRequest(req, next, schema);
 }
 
 function download(req, res, next) {
-    console.log("Welcome back");
+    const fileName = req.params.name;
+    const directoryPath = __basedir + "/resources/static/assets/uploads/";
+
+    res.download(directoryPath + fileName, fileName, (err) => {
+        if (err) {
+            res.status(500).send({
+                message: "Could not download the file. " + err,
+            });
+        }
+    });
 }

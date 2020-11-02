@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 
 const db = require('models/');
-const Op = Sequelize.Op;
 
 module.exports = {
     create,
@@ -9,7 +8,8 @@ module.exports = {
     delete: _delete
 };
 
-async function create(params) {
+async function create(params, filename) {
+    params.filename = filename;
     return db.Document.create(params);
 }
 

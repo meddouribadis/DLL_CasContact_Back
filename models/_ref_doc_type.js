@@ -3,31 +3,28 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Document extends Model {
+    class Ref_Doc_Type extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Document.belongsTo(models.User);
-            Document.belongsTo(models.Signalement);
-            Document.belongsTo(models.Ref_Doc_Type);
         }
     };
-    Document.init({
+    Ref_Doc_Type.init({
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        filename: { allowNull: false, type: DataTypes.STRING },
-        createdAt: { allowNull: false, type: DataTypes.DATE },
-        updatedAt: { allowNull: false, type: DataTypes.DATE }
+        code: { allowNull: false, type: DataTypes.STRING },
+        nom: { allowNull: false, type: DataTypes.STRING },
+        isAvailable: { allowNull: false, type: DataTypes.BOOLEAN },
     }, {
         sequelize,
-        modelName: 'Document',
+        modelName: 'Ref_Doc_Type',
         defaultScope: {
             attributes: { exclude: ['hash'] }
         },
@@ -35,5 +32,5 @@ module.exports = (sequelize, DataTypes) => {
             withHash: { attributes: {}, }
         }
     });
-    return Document;
+    return Ref_Doc_Type;
 };
