@@ -8,7 +8,8 @@ const documentService = require('./documents.service');
 const Role = require('_helpers/role');
 
 // Routes
-router.post("/upload", upload);
+router.get("/types", authorize(), getDocumentTypes);
+router.post("/upload", authorize(), upload);
 router.get("/files", authorize(), getListFiles);
 router.get("/files/:name", authorize(), download);
 
@@ -70,4 +71,10 @@ function download(req, res, next) {
             });
         }
     });
+}
+
+function getDocumentTypes(req, res, next) {
+    documentService.getAllDocumentTypes()
+        .then(types => res.json(types))
+        .catch(next);
 }
