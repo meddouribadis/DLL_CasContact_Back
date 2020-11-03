@@ -76,9 +76,15 @@ async function getById(id) {
 async function getSignalement(id) {
     const signalement = await db.Signalement.findByPk(id, {
         include: [{
-            model: db.User
-        }]
+            model: db.User,
+            },
+            {
+                model: db.Document,
+                include: [{
+                    model: db.Ref_Doc_Type
+                }]
+            }]
     });
-    if (!signalement) throw 'Classe non trouvée';
+    if (!signalement) throw 'Signalement non trouvée';
     return signalement;
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const fs = require('fs');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize');
 const uploadFileMiddleware = require('_middleware/upload');
@@ -11,7 +12,7 @@ const Role = require('_helpers/role');
 router.get("/types", authorize(), getDocumentTypes);
 router.post("/upload", authorize(), upload);
 router.get("/files", authorize(), getListFiles);
-router.get("/files/:name", authorize(), download);
+router.get("/files/:name", download);
 
 module.exports = router;
 
@@ -52,7 +53,7 @@ function getListFiles(req, res, next) {
         files.forEach((file) => {
             fileInfos.push({
                 name: file,
-                url: baseUrl + file,
+                url: 'http://localhost:4040/' + file,
             });
         });
 
