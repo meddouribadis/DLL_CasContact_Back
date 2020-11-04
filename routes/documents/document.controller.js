@@ -13,6 +13,7 @@ router.get("/types", authorize(), getDocumentTypes);
 router.post("/upload", authorize(), upload);
 router.get("/files", authorize(), getListFiles);
 router.get("/files/:name", download);
+router.delete('/:id', authorize([Role.Teacher, Role.Admin]), _delete);
 
 module.exports = router;
 
@@ -77,5 +78,11 @@ function download(req, res, next) {
 function getDocumentTypes(req, res, next) {
     documentService.getAllDocumentTypes()
         .then(types => res.json(types))
+        .catch(next);
+}
+
+function _delete(req, res, next) {
+    documentService.delete(req.params.id)
+        .then(() => res.json({ message: 'Document deleted successfully' }))
         .catch(next);
 }

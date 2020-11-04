@@ -44,7 +44,15 @@ async function _delete(id) {
 
 // Getter
 async function getAll() {
-    return await db.Signalement.findAll();
+    return await db.Signalement.findAll({
+        include: [{
+            model: db.User,
+            include: [{
+                model: db.Classe,
+                as: "classe"
+            }]
+        }]
+    });
 }
 
 async function getAllActive() {
