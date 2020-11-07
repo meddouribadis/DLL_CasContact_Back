@@ -37,7 +37,7 @@ function registerSchema(req, res, next) {
         lastName: Joi.string().required(),
         username: Joi.string().required(),
         email: Joi.string().required(),
-        numEtud: Joi.string().optional(),
+        numEtud: Joi.string().min(8).optional(),
         id_classe: Joi.string().required(),
         password: Joi.string().min(6).required()
     });
@@ -71,6 +71,9 @@ function updateSchema(req, res, next) {
         firstName: Joi.string().empty(''),
         lastName: Joi.string().empty(''),
         username: Joi.string().empty(''),
+        id_classe: Joi.string().empty(''),
+        email: Joi.string().empty(''),
+        numEtud: Joi.string().min(8).empty(''),
         password: Joi.string().min(6).empty('')
     });
     validateRequest(req, next, schema);
