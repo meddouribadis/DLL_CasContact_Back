@@ -9,9 +9,9 @@ async function sendWelcomeMail(params) {
 
     await sendEmail({
         to: params.email,
-        subject: 'Sign-up Verification API - Email Already Registered',
-        html: `<h4>Email Already Registered</h4>
-               <p>Your email <strong>${params.email}</strong> is already registered.</p>
+        subject: 'Inscription : Bienvenue sur cas covid',
+        html: `<h4>Merci pour votre inscription</h4>
+               <p>Votre Email <strong>${params.email}</strong> est désormais inscrit.</p>
                ${message}`
     });
 }
