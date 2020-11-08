@@ -20,6 +20,7 @@ app.use('/users', require('./routes/users/user.controller'));
 app.use('/classes', require('./routes/classes/classe.controller'));
 app.use('/signalements', require('./routes/signalements/signalement.controller'));
 app.use('/documents', require('./routes/documents/document.controller'));
+app.use('/mail', require('./routes/mail/mail.controller'));
 
 // global error handler
 app.use(errorHandler);

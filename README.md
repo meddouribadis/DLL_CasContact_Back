@@ -39,6 +39,12 @@ DB_USER=dll_bdd_user
 DB_PORT=8889
 DB_PASS=covid19
 DB_HOST=localhost
+MAIL_SERVICE_NAME = gmail # service name
+MAIL_SERVICE_HOST = smtp.gmail.com # service host name
+MAIL_SERVICE_SECURE = false # Service security
+MAIL_SERVICE_PORT = 587 # service port
+MAIL_USER_NAME = <email> # email address
+MAIL_USER_PASSWORD = <password> # email address password
 ```
 
 Update the `./config/config.json` file with our MySQL databases informations :
