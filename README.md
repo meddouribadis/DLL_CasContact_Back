@@ -1,4 +1,21 @@
-# DLL_CasContact_Back
+<p align="center">
+  <a href="https://github.com/meddouribadis/DLL_CasContact_Back">
+    <img src="https://ammib2018.sciencesconf.org/data/pages/logoUEVE.jpg" alt="Logo" width="430">
+  </a>
+</p>
+
+  <h3 align="center">Projet DLL COVID Cas Contact : Serveur Side</h3>
+
+  <p align="center">
+    Professeur : <strong>Didier COURTAUD</strong>
+    <br />
+    <a href="https://github.com/meddouribadis/DLL_CasContact_Back/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/meddouribadis/DLL_CasContact_Front">Partie Front</a>
+  </p>
+
+
+
 
 - [DLL_CasContact_Back](#DLL_CasContact_Back)
   * [Installation](#installation)
@@ -6,7 +23,8 @@
     + [Auth](#auth)
   * [Auteurs](#auteurs)
 
-## Installation
+## A propos du projet
+### Installation
 
 Clone this repo !
 
@@ -87,7 +105,6 @@ To login : POST http://localhost:4040/users/login
 Use apidoc command to generate the API Swagger : `apidoc -f "routes/.*\\.js$" -i ./  -o apidoc/`
 
 ## Auteurs
-
 - Badis Meddouri
 - Anis Kassy
 - Jayson Bouceaud
