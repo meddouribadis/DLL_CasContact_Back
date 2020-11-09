@@ -25,7 +25,7 @@ app.use('/mail', require('./routes/mail/mail.controller'));
 // global error handler
 app.use(errorHandler);
 
-db.sequelize.sync({ alter: true }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
    console.log("Drop and re-sync db.");
 });
 
