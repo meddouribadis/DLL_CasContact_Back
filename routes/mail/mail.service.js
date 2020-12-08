@@ -6,7 +6,7 @@ module.exports = {
 
 async function sendWelcomeMail(params) {
     let message = `<p>If you don't know your password you can reset it via the <code>/account/forgot-password</code> api route.</p>`;
-    let from = `Cas Covid - Univ Evry <univ-evry@gmail.com>`
+    let from = `Cas Covid - Univ Evry <meddouri.badis@gmail.com>`
 
     await sendEmail({
         from: from,
