@@ -1,14 +1,14 @@
-version: '3'
+version: '3.8'
 
 services:
   db:
     image: mysql:5.7
-    container_name: db
+    container_name: db_dll
     environment:
       MYSQL_ROOT_PASSWORD: my_secret_password
-      MYSQL_DATABASE: app_db
-      MYSQL_USER: db_user
-      MYSQL_PASSWORD: db_user_pass
+      MYSQL_DATABASE: dll
+      MYSQL_USER: dll_user
+      MYSQL_PASSWORD: covid19
     ports:
       - "6033:3306"
     volumes:
