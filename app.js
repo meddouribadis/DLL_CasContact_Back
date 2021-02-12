@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const errorHandler = require('_middleware/error-handler');
 const dotenv = require('dotenv');
 const db = require("./models");
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 dotenv.config();
 global.__basedir = __dirname;
@@ -13,7 +16,7 @@ global.__basedir = __dirname;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/apidoc', express.static('apidoc'));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // api routes
 app.use('/users', require('./routes/users/user.controller'));
