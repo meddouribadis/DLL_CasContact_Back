@@ -1,0 +1,221 @@
+swagger: "2.0"
+info:
+  description: "Ceci est la documentation du serveur DLL Cas Contact."
+  version: "1.0.0"
+  title: "Swagger DLL Cas Contact"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "meddouri.badis@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:4040"
+tags:
+  - name: "user"
+    description: "Les opérations utilisateurs"
+    externalDocs:
+      description: "Découvrez notre interface graphique"
+      url: "http://localhost:8080"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /user/register:
+    post:
+      tags:
+        - "user"
+      summary: "Créer un utilisateur"
+      description: "S'enregistrer dans la base de donnée."
+      operationId: "register"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created user object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "Inscription réussie"
+  /user/login:
+    post:
+      tags:
+        - "user"
+      summary: "Se connecter au système"
+      description: ""
+      operationId: "login"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "username"
+          in: "query"
+          description: "Le nom d'utilisateur"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          description: "Le mot de passe de l'utilisateur"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        "400":
+          description: "Mot de passe ou identifiant erroné"
+  /user:
+    get:
+      tags:
+        - "user"
+      summary: "Récupérer la liste des utilisateurs"
+      description: "Opération uniquement disponible pour les professeur et administrateur."
+      operationId: "getAll"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+  /user/current:
+    get:
+      tags:
+        - "user"
+      summary: "Récupérer l'utilisateur connecté"
+      description: ""
+      operationId: "getCurrent"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/User"
+          description: "successful operation"
+  /user/{id}:
+    get:
+      tags:
+        - "user"
+      summary: "Récuperer un utilisateur par son identifiant"
+      description: ""
+      operationId: "getUserById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "The name that needs to be fetched. Use 1 for testing. "
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Utilisateur non trouvé"
+    put:
+      tags:
+        - "user"
+      summary: "Mettre à jour un utilisateur"
+      description: "Ne peut être réalisé que par un utilisateur connecté."
+      operationId: "updateUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Objet utilisateur à mettre à jour"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Utilisateur non trouvé"
+    delete:
+      tags:
+        - "user"
+      summary: "Supprimer un utilisateur"
+      description: "Ne peut être réalisé que par un administrateur ou un profeesseur."
+      operationId: "deleteUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Utilisateur non trouvé"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      numEtud:
+        type: "string"
+      id_classe:
+        type: "string"
+    xml:
+      name: "User"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
