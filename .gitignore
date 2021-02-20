@@ -118,3 +118,6 @@ dist
 .idea/
 migrations/
 apidoc/
+
+# uploads
+resources/static/assets/uploads

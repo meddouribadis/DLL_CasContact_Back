@@ -5,8 +5,10 @@ const fs = require('fs');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize');
 const uploadFileMiddleware = require('_middleware/upload');
+const encryptMiddleware = require('_middleware/encrypt');
 const documentService = require('./documents.service');
 const Role = require('_helpers/role');
+const path = require("path");
 
 // Routes
 router.get("/types", authorize(), getDocumentTypes);
@@ -17,20 +19,35 @@ router.delete('/:id', authorize([Role.Teacher, Role.Admin]), _delete);
 
 module.exports = router;
 
+const secret = {
+    iv: Buffer.from('efb2da92cff888c9c295dc4ee682789c', 'hex'),
+    key: Buffer.from('6245cb9b8dab1c1630bb3283063f963574d612ca6ec60bc8a5d1e07ddd3f7c53', 'hex')
+}
+
 async function upload(req, res, next) {
     try {
         await uploadFileMiddleware(req, res);
 
         if (req.file == undefined) {
-            return res.status(400).send({ message: "Please upload a file!" });
+            return res.status(400).send({message: "Please upload a file!"});
         }
 
-        documentService.create(req.body, req.file.filename)
-            .then((document) => res.status(201).json({
-                id: document.id,
-                message: 'Document created successfully'
-            }))
-            .catch(next);
+        console.log("req.file: ", req.file);
+
+        let buffer = fs.readFileSync(req.file.path);
+        encryptMiddleware.saveEncryptedFile(buffer, req.file.path, secret.key, secret.iv).then((data, err) => {
+            if (err) {
+                console.log("error", err);
+                throw(err);
+            }
+            console.log("resolve", data);
+            documentService.create(req.body, req.file.filename)
+                .then((document) => res.status(201).json({
+                    id: document.id,
+                    message: 'Document created successfully'
+                }))
+                .catch(next);
+        });
 
     } catch (err) {
         res.status(500).send({
