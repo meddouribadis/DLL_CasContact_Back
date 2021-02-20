@@ -44,7 +44,7 @@ function saveEncryptedFile(buffer, filePath, key, iv) {
 }
 
 function getEncryptedFile(filePath, key, iv) {
-    filePath = getEncryptedFilePath(filePath);
+    //filePath = getEncryptedFilePath(filePath);
     const encrypted = fs.readFileSync(filePath);
     const buffer = decrypt(CryptoAlgorithm, encrypted, key, iv);
     return buffer;
