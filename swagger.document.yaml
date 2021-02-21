@@ -11,8 +11,8 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:4040"
 tags:
-  - name: "classe"
-    description: "Les opérations des classes"
+  - name: "document"
+    description: "Les opérations des documents"
     externalDocs:
       description: "Découvrez notre interface graphique"
       url: "http://localhost:8080"
@@ -20,128 +20,79 @@ schemes:
   - "https"
   - "http"
 paths:
-  /classes/:
+  /document/types:
+    get:
+      tags:
+        - "document"
+      summary: "Generer ..."
+      description: ""
+      operationId: "getDocumentTypes"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/document"
+          description: "successful operation"
+  /document/files:
+    get:
+      tags:
+        - "document"
+      summary: "Generer la liste des documents"
+      description: ""
+      operationId: "getListFiles"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/document"
+          description: "successful operation"
+  /document/upload:
     post:
       tags:
-        - "classes"
-      summary: "Créer une classes"
-      
-      operationId: "register"
+        - "document"
+      summary: "Upload un document"
+      description: ""
+      operationId: "upload"
       produces:
         - "application/json"
       parameters:
-        - in: "body"
-          name: "body"
-          description: "Created Classeroom object"
+        - name: "files"
+          in: "query"
+          description: "fichier transferé"
           required: true
-          schema:
-            $ref: "#/definitions/Classes"
-      responses:
-        default:
-  
-  /classes:
-    get:
-      tags:
-        - "classes"
-      summary: "Recuperer les classes"
-      
-      operationId: "getAll"
-      produces:
-        - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-  /classes/liste:
-    get:
-      tags:
-        - "classes"
-      summary: "Récupérer la liste"
-      description: ""
-      operationId: "getListe"
-      produces:
-        - "application/json"
-      parameters: []
-      responses:
-        default:
-          schema:
-            $ref: "#/definitions/Classes"
-          description: "successful operation"
-  /classes/{id}:
-    get:
-      tags:
-        - "classes"
-      summary: "Récuperer une classes par son identifiant"
-      description: ""
-      operationId: "getClassesById"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "id"
-          in: "path"
-          description: "The name that needs to be fetched. Use 1 for testing. "
-          required: true
-          type: "string"
+          type: ""
       responses:
         "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Classes"
-        "400":
-          description: "ID fourni invalide"
-        "404":
-          description: "Classes non trouvé"
-    put:
-      tags:
-        - "classes"
-      summary: "Mettre à jour la classes"
-      description: ""
-      operationId: "updateClasses"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "id"
-          in: "path"
-          description: "ID of Classeroom that need to be updated"
-          required: true
-          type: "string"
-        - in: "body"
-          name: "body"
-          description: "Objet Classes à mettre à jour"
-          required: true
-          schema:
-            $ref: "#/definitions/Classes"
-      responses:
-        "400":
-          description: "ID fourni invalide"
-        "404":
-          description: "Classes non trouvé"
+  /document/{id}:
     delete:
       tags:
-        - "classes"
-      summary: "Supprimer une classe"
-      description: "Ne peut être réalisé que par un administrateur ou un profeesseur."
-      operationId: "deleteClasse"
+        - "document"
+      summary: "Supprimer un document"
+      operationId: "_delete"
       produces:
         - "application/json"
       parameters:
         - name: "id"
           in: "path"
-          description: "ID of classeroom that needs to be deleted"
+          description: "ID of document that needs to be deleted"
           required: true
           type: "string"
       responses:
         "400":
           description: "ID fourni invalide"
         "404":
-          description: "Classe non trouvé"
-/classes/byName/{name}:
+          description: "Document non trouvé"
+/document/files/{name}:
     get:
       tags:
-        - "classes"
-      summary: "Récuperer une classes par son nom"
+        - "document"
+      summary: "Récuperer un document par son nom"
       description: ""
-      operationId: "getClassesByName"
+      operationId: "donwload"
       produces:
         - "application/json"
       parameters:
@@ -154,11 +105,11 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Classes"
+            $ref: "#/definitions/document"
         "400":
           description: "ID fourni invalide"
         "404":
-          description: "Classes non trouvé"
+          description: "document non trouvé"
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
@@ -167,18 +118,18 @@ securityDefinitions:
     scopes:
       write:pets: "modify pets in your account"
       read:pets: "read your pets"
-  api_key:
+api_key:
     type: "apiKey"
     name: "api_key"
     in: "header"
 definitions:
-  Classes:
+  document:
     type: "object"
     properties:
       id:
         type: "integer"
         format: "int64"
-      classeroomname:
+      documentname:
         type: "string"
       firstName:
         type: "string"
@@ -193,7 +144,7 @@ definitions:
       id_classe:
         type: "string"
     xml:
-      name: "classes"
+      name: "document"
   ApiResponse:
     type: "object"
     properties:

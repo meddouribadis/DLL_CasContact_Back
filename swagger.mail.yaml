@@ -31,10 +31,9 @@ paths:
       produces:
         - "application/json"
       responses:
-        "400":
-          description: "ID fourni invalide"
+
         "404":
-          description: "Classes non trouvé"
+          description: "Mail non trouvé"
   
 securityDefinitions:
   petstore_auth:
@@ -67,8 +66,7 @@ definitions:
         type: "string"
       numEtud:
         type: "string"
-      id_classe:
-        type: "string"
+ 
     xml:
       name: "mail"
   ApiResponse:
