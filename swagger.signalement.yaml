@@ -11,8 +11,8 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:4040"
 tags:
-  - name: "classe"
-    description: "Les opérations des classes"
+  - name: "signalement"
+    description: "Les opérations des signalements"
     externalDocs:
       description: "Découvrez notre interface graphique"
       url: "http://localhost:8080"
@@ -20,11 +20,11 @@ schemes:
   - "https"
   - "http"
 paths:
-  /classes:
+  /signalement:
     post:
       tags:
-        - "classes"
-      summary: "Créer une classes"
+        - "signalement"
+      summary: "Créer un signalement"
       
       operationId: "register"
       produces:
@@ -32,18 +32,16 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "Created Classeroom object"
+          description: "Created signalement object"
           required: true
           schema:
-            $ref: "#/definitions/Classes"
+            $ref: "#/definitions/signalement"
       responses:
         default:
-  
-  /classes:
     get:
       tags:
-        - "classes"
-      summary: "Recuperer les classes"
+        - "signalement"
+      summary: "Recuperer les signalement"
       
       operationId: "getAll"
       produces:
@@ -52,28 +50,28 @@ paths:
       responses:
         default:
           description: "successful operation"
-  /classes/liste:
+  /signalement/allActive:
     get:
       tags:
-        - "classes"
-      summary: "Récupérer la liste"
+        - "signalement"
+      summary: "Récupérer tous les signalements actifs"
       description: ""
-      operationId: "getListe"
+      operationId: "getAllActive"
       produces:
         - "application/json"
       parameters: []
       responses:
         default:
           schema:
-            $ref: "#/definitions/Classes"
+            $ref: "#/definitions/signalement"
           description: "successful operation"
-  /classes/{id}:
+  /signalement/byUser/{id}:
     get:
       tags:
-        - "classes"
-      summary: "Récuperer une classes par son identifiant"
+        - "signalement"
+      summary: "Récuperer un signalement par son identifiant"
       description: ""
-      operationId: "getClassesById"
+      operationId: "getSignalementById"
       produces:
         - "application/json"
       parameters:
@@ -86,79 +84,54 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Classes"
+            $ref: "#/definitions/Signalement"
         "400":
           description: "ID fourni invalide"
         "404":
-          description: "Classes non trouvé"
+          description: "Signalement non trouvé"
     put:
       tags:
-        - "classes"
-      summary: "Mettre à jour la classes"
+        - "Signalement"
+      summary: "Mettre à jour la Signalement"
       description: ""
-      operationId: "updateClasses"
+      operationId: "updateSignalement"
       produces:
         - "application/json"
       parameters:
         - name: "id"
           in: "path"
-          description: "ID of Classeroom that need to be updated"
+          description: "ID of the Signalement that need to be updated"
           required: true
           type: "string"
         - in: "body"
           name: "body"
-          description: "Objet Classes à mettre à jour"
+          description: "Objet signalement à mettre à jour"
           required: true
           schema:
-            $ref: "#/definitions/Classes"
+            $ref: "#/definitions/signalement"
       responses:
         "400":
           description: "ID fourni invalide"
         "404":
-          description: "Classes non trouvé"
+          description: "Signalements non trouvé"
     delete:
       tags:
-        - "classes"
-      summary: "Supprimer une classe"
-      description: "Ne peut être réalisé que par un administrateur ou un profeesseur."
-      operationId: "deleteClasse"
+        - "signalement"
+      summary: "Supprimer un Signalement"
+      operationId: "deleteSignalement"
       produces:
         - "application/json"
       parameters:
         - name: "id"
           in: "path"
-          description: "ID of classeroom that needs to be deleted"
+          description: "ID of Signalement that needs to be deleted"
           required: true
           type: "string"
       responses:
         "400":
           description: "ID fourni invalide"
         "404":
-          description: "Classe non trouvé"
-/classes/byName/{name}:
-    get:
-      tags:
-        - "classes"
-      summary: "Récuperer une classes par son nom"
-      description: ""
-      operationId: "getClassesByName"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "name"
-          in: "path"
-          description: "The name that needs to be fetched. Use 1 for testing. "
-          required: true
-          type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Classes"
-        "400":
-          description: "ID fourni invalide"
-        "404":
-          description: "Classes non trouvé"
+          description: "Signalement non trouvé"
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
