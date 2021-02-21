@@ -38,9 +38,7 @@ paths:
             $ref: "#/definitions/Classes"
       responses:
         default:
-  
-  /classes:
-    get:
+  get:
       tags:
         - "classes"
       summary: "Recuperer les classes"
