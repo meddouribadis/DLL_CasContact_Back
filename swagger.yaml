@@ -171,6 +171,120 @@ paths:
           description: "ID fourni invalide"
         "404":
           description: "Utilisateur non trouvé"
+  /classes:
+    post:
+      tags:
+        - "classes"
+      summary: "Créer une classes"
+
+      operationId: "registerClasse"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created Classeroom object"
+          required: true
+          schema:
+            $ref: "#/definitions/Classes"
+      responses:
+        default:
+          description: "successful operation"
+    get:
+      tags:
+        - "classes"
+      summary: "Recuperer les classes"
+
+      operationId: "getAllClasses"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          description: "successful operation"
+  /classes/liste:
+    get:
+      tags:
+        - "classes"
+      summary: "Récupérer la liste"
+      description: ""
+      operationId: "getListe"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/Classes"
+          description: "successful operation"
+  /classes/{id}:
+    get:
+      tags:
+        - "classes"
+      summary: "Récuperer une classes par son identifiant"
+      description: ""
+      operationId: "getClassesById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "The name that needs to be fetched. Use 1 for testing. "
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Classes"
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Classes non trouvé"
+    put:
+      tags:
+        - "classes"
+      summary: "Mettre à jour la classes"
+      description: ""
+      operationId: "updateClasses"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of Classeroom that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Objet Classes à mettre à jour"
+          required: true
+          schema:
+            $ref: "#/definitions/Classes"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Classes non trouvé"
+    delete:
+      tags:
+        - "classes"
+      summary: "Supprimer une classe"
+      description: "Ne peut être réalisé que par un administrateur ou un profeesseur."
+      operationId: "deleteClasse"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of classeroom that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Classe non trouvé"
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
@@ -206,6 +320,28 @@ definitions:
         type: "string"
     xml:
       name: "User"
+  Classes:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      classeroomname:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      numEtud:
+        type: "string"
+      id_classe:
+        type: "string"
+    xml:
+      name: "classes"
   ApiResponse:
     type: "object"
     properties:
