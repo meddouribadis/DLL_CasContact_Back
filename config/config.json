@@ -8,17 +8,19 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
+    "username": "dll_user",
+    "password": "covid19",
+    "database": "dll",
     "host": "127.0.0.1",
+    "port": "3306",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "admin_dll_user",
+    "password": "",
+    "database": "admin_dll",
+    "port": "3306",
+    "host": "",
     "dialect": "mysql"
   },
   "secret": "696b7ae4-0bf7-40c9-a667-94eb2b2bf4c5-bf8bceae-1c54-494c-a6c6-a5fff76005e9",
@@ -26,8 +28,8 @@
     "host": "in-v3.mailjet.com",
     "port": 587,
     "auth": {
-      "user": "yourmail",
-      "pass": "yourpass"
+      "user": "",
+      "pass": ""
     }
   }
 }
