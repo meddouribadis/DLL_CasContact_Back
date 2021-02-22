@@ -1,6 +1,10 @@
 version: '3.8'
-
 services:
+  api:
+    build: .
+    container_name: dll_api
+    ports:
+      - "4040:4040"
   db:
     image: mysql:5.7
     container_name: db_dll
