@@ -251,6 +251,493 @@
           }
         }
       }
+    },
+    "/classes": {
+      "post": {
+        "tags": [
+          "classes"
+        ],
+        "summary": "Créer une classes",
+        "operationId": "registerClasse",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Classeroom object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Classes"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "classes"
+        ],
+        "summary": "Recuperer les classes",
+        "operationId": "getAllClasses",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/classes/liste": {
+      "get": {
+        "tags": [
+          "classes"
+        ],
+        "summary": "Récupérer la liste",
+        "description": "",
+        "operationId": "getListe",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Classes"
+            },
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/classes/{id}": {
+      "get": {
+        "tags": [
+          "classes"
+        ],
+        "summary": "Récuperer une classes par son identifiant",
+        "description": "",
+        "operationId": "getClassesById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use 1 for testing. ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Classes"
+            }
+          },
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Classes non trouvé"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "classes"
+        ],
+        "summary": "Mettre à jour la classes",
+        "description": "",
+        "operationId": "updateClasses",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Classeroom that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objet Classes à mettre à jour",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Classes"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Classes non trouvé"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "classes"
+        ],
+        "summary": "Supprimer une classe",
+        "description": "Ne peut être réalisé que par un administrateur ou un profeesseur.",
+        "operationId": "deleteClasse",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of classeroom that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Classe non trouvé"
+          }
+        }
+      }
+    },
+    "/document/types": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Generer ...",
+        "description": "",
+        "operationId": "getDocumentTypes",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/document"
+            },
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/document/files": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Generer la liste des documents",
+        "description": "",
+        "operationId": "getListFiles",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/document"
+            },
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/document/upload": {
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Upload un document",
+        "description": "",
+        "operationId": "upload",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "files",
+            "in": "query",
+            "description": "fichier transferé",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Document créer"
+          }
+        }
+      }
+    },
+    "/document/{id}": {
+      "delete": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Supprimer un document",
+        "operationId": "_delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of document that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Document non trouvé"
+          }
+        }
+      }
+    },
+    "/document/files/{name}": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Récuperer un document par son nom",
+        "description": "",
+        "operationId": "donwload",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use 1 for testing. ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/document"
+            }
+          },
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "document non trouvé"
+          }
+        }
+      }
+    },
+    "/signalement": {
+      "post": {
+        "tags": [
+          "signalement"
+        ],
+        "summary": "Créer un signalement",
+        "operationId": "postSignalement",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created signalement object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signalement"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "signalement"
+        ],
+        "summary": "Recuperer les signalement",
+        "operationId": "getAllSignalement",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/signalement/allActive": {
+      "get": {
+        "tags": [
+          "signalement"
+        ],
+        "summary": "Récupérer tous les signalements actifs",
+        "description": "",
+        "operationId": "getAllActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/signalement"
+            },
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/signalement/byUser/{id}": {
+      "get": {
+        "tags": [
+          "signalement"
+        ],
+        "summary": "Récuperer un signalement par son identifiant",
+        "description": "",
+        "operationId": "getSignalementById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use 1 for testing. ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/signalement"
+            }
+          },
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Signalement non trouvé"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "signalement"
+        ],
+        "summary": "Mettre à jour la Signalement",
+        "description": "",
+        "operationId": "updateSignalement",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Signalement that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objet signalement à mettre à jour",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signalement"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Signalements non trouvé"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "signalement"
+        ],
+        "summary": "Supprimer un Signalement",
+        "operationId": "deleteSignalement",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Signalement that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID fourni invalide"
+          },
+          "404": {
+            "description": "Signalement non trouvé"
+          }
+        }
+      }
+    },
+    "/mail": {
+      "post": {
+        "tags": [
+          "mail"
+        ],
+        "summary": " Envoyer un mail",
+        "description": "",
+        "operationId": "sendMail",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "404": {
+            "description": "Mail non trouvé"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -301,6 +788,105 @@
       },
       "xml": {
         "name": "User"
+      }
+    },
+    "Classes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "classeroomname": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "numEtud": {
+          "type": "string"
+        },
+        "id_classe": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "classes"
+      }
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "documentname": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "numEtud": {
+          "type": "string"
+        },
+        "id_classe": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "document"
+      }
+    },
+    "signalement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "classeroomname": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "numEtud": {
+          "type": "string"
+        },
+        "id_classe": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "signalement"
       }
     },
     "ApiResponse": {
