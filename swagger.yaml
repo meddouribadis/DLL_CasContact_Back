@@ -487,6 +487,18 @@ paths:
           description: "ID fourni invalide"
         "404":
           description: "Signalement non trouvé"
+  /mail:
+    post:
+      tags:
+        - "mail"
+      summary: " Envoyer un mail"
+      description: ""
+      operationId: "sendMail"
+      produces:
+        - "application/json"
+      responses:
+        "404":
+          description: "Mail non trouvé"
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
