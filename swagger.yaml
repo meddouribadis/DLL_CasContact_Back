@@ -1,0 +1,615 @@
+swagger: "2.0"
+info:
+  description: "Ceci est la documentation du serveur DLL Cas Contact."
+  version: "1.0.0"
+  title: "Swagger DLL Cas Contact"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "meddouri.badis@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:4040"
+tags:
+  - name: "user"
+    description: "Les opérations utilisateurs"
+    externalDocs:
+      description: "Découvrez notre interface graphique"
+      url: "http://localhost:8080"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /user/register:
+    post:
+      tags:
+        - "user"
+      summary: "Créer un utilisateur"
+      description: "S'enregistrer dans la base de donnée."
+      operationId: "register"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created user object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "Inscription réussie"
+  /user/login:
+    post:
+      tags:
+        - "user"
+      summary: "Se connecter au système"
+      description: ""
+      operationId: "login"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "username"
+          in: "query"
+          description: "Le nom d'utilisateur"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          description: "Le mot de passe de l'utilisateur"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        "400":
+          description: "Mot de passe ou identifiant erroné"
+  /user:
+    get:
+      tags:
+        - "user"
+      summary: "Récupérer la liste des utilisateurs"
+      description: "Opération uniquement disponible pour les professeur et administrateur."
+      operationId: "getAll"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+  /user/current:
+    get:
+      tags:
+        - "user"
+      summary: "Récupérer l'utilisateur connecté"
+      description: ""
+      operationId: "getCurrent"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/User"
+          description: "successful operation"
+  /user/{id}:
+    get:
+      tags:
+        - "user"
+      summary: "Récuperer un utilisateur par son identifiant"
+      description: ""
+      operationId: "getUserById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "The name that needs to be fetched. Use 1 for testing. "
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Utilisateur non trouvé"
+    put:
+      tags:
+        - "user"
+      summary: "Mettre à jour un utilisateur"
+      description: "Ne peut être réalisé que par un utilisateur connecté."
+      operationId: "updateUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Objet utilisateur à mettre à jour"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Utilisateur non trouvé"
+    delete:
+      tags:
+        - "user"
+      summary: "Supprimer un utilisateur"
+      description: "Ne peut être réalisé que par un administrateur ou un profeesseur."
+      operationId: "deleteUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Utilisateur non trouvé"
+  /classes:
+    post:
+      tags:
+        - "classes"
+      summary: "Créer une classes"
+
+      operationId: "registerClasse"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created Classeroom object"
+          required: true
+          schema:
+            $ref: "#/definitions/Classes"
+      responses:
+        default:
+          description: "successful operation"
+    get:
+      tags:
+        - "classes"
+      summary: "Recuperer les classes"
+
+      operationId: "getAllClasses"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          description: "successful operation"
+  /classes/liste:
+    get:
+      tags:
+        - "classes"
+      summary: "Récupérer la liste"
+      description: ""
+      operationId: "getListe"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/Classes"
+          description: "successful operation"
+  /classes/{id}:
+    get:
+      tags:
+        - "classes"
+      summary: "Récuperer une classes par son identifiant"
+      description: ""
+      operationId: "getClassesById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "The name that needs to be fetched. Use 1 for testing. "
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Classes"
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Classes non trouvé"
+    put:
+      tags:
+        - "classes"
+      summary: "Mettre à jour la classes"
+      description: ""
+      operationId: "updateClasses"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of Classeroom that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Objet Classes à mettre à jour"
+          required: true
+          schema:
+            $ref: "#/definitions/Classes"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Classes non trouvé"
+    delete:
+      tags:
+        - "classes"
+      summary: "Supprimer une classe"
+      description: "Ne peut être réalisé que par un administrateur ou un profeesseur."
+      operationId: "deleteClasse"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of classeroom that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Classe non trouvé"
+  /document/types:
+    get:
+      tags:
+        - "document"
+      summary: "Generer ..."
+      description: ""
+      operationId: "getDocumentTypes"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/document"
+          description: "successful operation"
+  /document/files:
+    get:
+      tags:
+        - "document"
+      summary: "Generer la liste des documents"
+      description: ""
+      operationId: "getListFiles"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/document"
+          description: "successful operation"
+  /document/upload:
+    post:
+      tags:
+        - "document"
+      summary: "Upload un document"
+      description: ""
+      operationId: "upload"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "files"
+          in: "query"
+          description: "fichier transferé"
+          required: true
+          type: "string"
+      responses:
+        "201":
+          description: "Document créer"
+  /document/{id}:
+    delete:
+      tags:
+        - "document"
+      summary: "Supprimer un document"
+      operationId: "_delete"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of document that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Document non trouvé"
+  /document/files/{name}:
+    get:
+      tags:
+        - "document"
+      summary: "Récuperer un document par son nom"
+      description: ""
+      operationId: "donwload"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "name"
+          in: "path"
+          description: "The name that needs to be fetched. Use 1 for testing. "
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/document"
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "document non trouvé"
+  /signalement:
+    post:
+      tags:
+        - "signalement"
+      summary: "Créer un signalement"
+      operationId: "postSignalement"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created signalement object"
+          required: true
+          schema:
+            $ref: "#/definitions/signalement"
+      responses:
+        default:
+          description: "successful operation"
+    get:
+      tags:
+        - "signalement"
+      summary: "Recuperer les signalement"
+      operationId: "getAllSignalement"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          description: "successful operation"
+  /signalement/allActive:
+    get:
+      tags:
+        - "signalement"
+      summary: "Récupérer tous les signalements actifs"
+      description: ""
+      operationId: "getAllActive"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        default:
+          schema:
+            $ref: "#/definitions/signalement"
+          description: "successful operation"
+  /signalement/byUser/{id}:
+    get:
+      tags:
+        - "signalement"
+      summary: "Récuperer un signalement par son identifiant"
+      description: ""
+      operationId: "getSignalementById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "The name that needs to be fetched. Use 1 for testing. "
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/signalement"
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Signalement non trouvé"
+    put:
+      tags:
+        - "signalement"
+      summary: "Mettre à jour la Signalement"
+      description: ""
+      operationId: "updateSignalement"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the Signalement that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Objet signalement à mettre à jour"
+          required: true
+          schema:
+            $ref: "#/definitions/signalement"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Signalements non trouvé"
+    delete:
+      tags:
+        - "signalement"
+      summary: "Supprimer un Signalement"
+      operationId: "deleteSignalement"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of Signalement that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "ID fourni invalide"
+        "404":
+          description: "Signalement non trouvé"
+  /mail:
+    post:
+      tags:
+        - "mail"
+      summary: " Envoyer un mail"
+      description: ""
+      operationId: "sendMail"
+      produces:
+        - "application/json"
+      responses:
+        "404":
+          description: "Mail non trouvé"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      numEtud:
+        type: "string"
+      id_classe:
+        type: "string"
+    xml:
+      name: "User"
+  Classes:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      classeroomname:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      numEtud:
+        type: "string"
+      id_classe:
+        type: "string"
+    xml:
+      name: "classes"
+  document:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      documentname:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      numEtud:
+        type: "string"
+      id_classe:
+        type: "string"
+    xml:
+      name: "document"
+  signalement:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      classeroomname:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      numEtud:
+        type: "string"
+      id_classe:
+        type: "string"
+    xml:
+      name: "signalement"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
