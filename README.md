@@ -113,5 +113,5 @@ Use apidoc command to generate the API Swagger : `apidoc -f "routes/.*\\.js$" -i
 ## Auteurs
 - Badis Meddouri
 - Anis Kassy
-- Jayson Bouceaud
+- Jayson Boucaud
 
